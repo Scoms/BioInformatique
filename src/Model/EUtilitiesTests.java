@@ -36,12 +36,38 @@ public class EUtilitiesTests {
 
 	   public static void main(String args[])
 	   {
-		   String db ="gene";
-		   String query = "asthma[mesh]+AND+leukotrienes[mesh]+AND+2009[pdat]";
-
-		   String base = "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/";
-		   String url = base + "esearch.fcgi?db="+db+"&term="+query+"&usehistory=y";
+		   EUtilities eUtils = new EUtilities();
 		   
-		   System.out.println(getHTML(url));
+		   String db = "protein";
+		   String id_list = "194680922,50978626,28558982,9507199,6678417";
+		   
+		   String base = "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/";
+		   String url = base + "epost.fcgi?db=" + db + "&id=" + id_list;
+		   
+		   String xml = getHTML(url);
+		   
+		   String web = EUtilities.getWebEnv(xml);
+		   String key = EUtilities.getQueryKey(xml);
+
+		   url = base + "esummary.fcgi?db="+db+"&query_key="+key+ "&WebEnv=" +web;
+
+		   String docsums = getHTML(url);
+		   System.out.println("Docsums :");
+		   RenderXML(docsums);
+		   
+		   url = base + "efetch.fcgi?db="+db+"&query_key=" + key + "&WebEnv="+web;
+		   url += "&rettype=fasta&retmode=text";
+
+		   String data = getHTML(url);
+
+		   System.out.println("Data :");
+		   RenderXML(data);
 	   }
+
+	private static void RenderXML(String html) {
+		// TODO Auto-generated method stub
+		
+		   System.out.println((html));
+		   System.out.println();
+	}
 }
