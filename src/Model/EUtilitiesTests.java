@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class EUtilitiesTests {
 	
@@ -62,11 +63,17 @@ public class EUtilitiesTests {
 
 		   System.out.println("Data :");
 		   RenderXML(data);
+		   
+		   ArrayList<Species> species = new ArrayList<Species>();
+		   species = EUtilities.getSpecies(data);
+		   
+		   for (Species spe : species) 
+		   {
+			   System.out.println(spe);
+		   }
 	   }
 
 	private static void RenderXML(String html) {
-		// TODO Auto-generated method stub
-		
 		   System.out.println((html));
 		   System.out.println();
 	}
