@@ -37,7 +37,6 @@ public class EUtilities {
 		{
 			res = (xml.substring(m.start() + 10,m.end() - 11)); 
 		}
-		
 		return res;
 	}
 	
@@ -70,6 +69,24 @@ public class EUtilities {
 			skip = endGenome;
 		}
 	
+		return res;
+	}
+
+	public static String getCount(String xml) {
+		String res ="";
+		Pattern  start = Pattern.compile("<Count>");
+		Pattern  end = Pattern.compile("</Count>");
+		Matcher m = start.matcher(xml);
+		Matcher n = end.matcher(xml);
+		if(m.find())
+		{
+			if(n.find())
+			{
+				res = (xml.substring(m.start() + 7,n.start() )); 	
+			}
+		}
+		
+		//System.out.println(res + " \n" + m.start() + " " + m.end());
 		return res;
 	}
 }
