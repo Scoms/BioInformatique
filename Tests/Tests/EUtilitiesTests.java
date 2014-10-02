@@ -121,7 +121,8 @@ public class EUtilitiesTests {
 			// chimpanzee peut etre remplacé par "human" par exemple. 
 			String query = "chimpanzee[orgn]+AND+biomol+mrna[prop]";
 
-			String url = base + "esearch.fcgi?db=nucleotide&term=$query&usehistory=y";
+			//query = "human[orgn]";
+			String url = base + "esearch.fcgi?db=nucleotide&term=" + query + "&usehistory=y";
 
 			String data = getHTML(url);
 			RenderXML(data);
@@ -139,7 +140,7 @@ public class EUtilitiesTests {
 			{
 				String efetch_url = base + "efetch.fcgi?db=nucleotide&WebEnv=" + webEnv;
 		        efetch_url += "&query_key=" + key + "&retstart=" + retstart;
-		        efetch_url += "&retmax=" + retmax + "&rettype=fasta&retmode=text";
+		        efetch_url += "&retmax=" + retmax + "&rettype=gb&retmode=text";
 		        
 		        try 
 		        {
