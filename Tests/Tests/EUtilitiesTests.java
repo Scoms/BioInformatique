@@ -171,11 +171,21 @@ public class EUtilitiesTests {
 	        }
 		}
 		
+		public static void GetArborescence()
+		{
+			String query = "Animals[orgn]";
+			String url = base + "esearch.fcgi?db=nucleotide&term=" + query + "&usehistory=y";
+
+			String data = getHTML(url);
+			RenderXML(data);
+		}
 		
 	   public static void main(String args[])
 	   {
 		   //FirstTest();
 		   SecondTest();
+		   
+		   //GetArborescence();
 	   }
 
 	private static void RenderXML(String html) {
