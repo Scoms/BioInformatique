@@ -8,7 +8,10 @@ import java.io.PrintWriter;
 import java.io.Writer;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.security.Timestamp;
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Timer;
 
 import Files.FilesUtils;
 import Model.EUtilities;
@@ -136,6 +139,9 @@ public class EUtilitiesTests {
 			int retmax = 500;
 			int retstart;
 			
+			long start = System.currentTimeMillis();
+			long chrono = System.currentTimeMillis();
+			
 			for (retstart = 0; retstart < count; retstart += retmax) 
 			{
 				String efetch_url = base + "efetch.fcgi?db=nucleotide&WebEnv=" + webEnv;
@@ -144,11 +150,19 @@ public class EUtilitiesTests {
 		        
 		        try 
 		        {
-			        System.out.println("read");
+			        System.out.print("read : ");
 			        String content = getHTML(efetch_url);
-			        System.out.println("write");
-					FilesUtils.SaveFile("" + retstart, content);
-		        	System.out.println("done");
+			        
+			        chrono = System.currentTimeMillis();
+			        PrintTime(chrono - start);
+			        System.out.print("write : ");
+			        
+			        start = System.currentTimeMillis(); 
+			        FilesUtils.SaveFile("" + retstart, content);
+			        chrono = System.currentTimeMillis();
+			        PrintTime(chrono - start);
+			        start = chrono;
+			        System.out.println();
 				} 
 		        catch (Exception e) 
 		        {
@@ -167,5 +181,12 @@ public class EUtilitiesTests {
 	private static void RenderXML(String html) {
 		   System.out.println((html));
 		   System.out.println();
+	}
+	private static void PrintTime(long millis)
+	{
+		int seconds = (int) (millis / 1000) % 60 ;
+		int minutes = (int) ((millis / (1000*60)) % 60);
+		System.out.print(String.format("%d min, %d sec ", 
+			    minutes, seconds));	
 	}
 }
